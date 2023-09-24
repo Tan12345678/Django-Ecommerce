@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="{% url 'index' %ƒ}"><img src="/static/images/home/logo.png" alt="" /></a>
+                        <a href="{% url 'index' %}"><img src="/static/images/home/logo.png" alt="" /></a>
                     </div>
                     </div>
                 </div>
@@ -96,8 +96,10 @@
                         </ul>
                     </div>
                     <div class="theme-buttons pull-right">
-                        <button id="light-theme-button" class="theme-button" onclick="setLightTheme()">Light</button>
-                        <button id="dark-theme-button" class="theme-button" onclick="setDarkTheme()">Dark</button>
+                        <!-- Add this button wherever you want it on your page -->
+                        <button id="theme-toggle-button" class="btn btn-default">Toggle Theme</button>
+
+
                 </div>
                 </div>
             </div>
@@ -245,88 +247,124 @@
 <script src="/static/js/jquery.prettyPhoto.js"></script>
 <script src="/static/js/main.js"></script>
 <script>
-    // Function to set the light theme
-    function setLightTheme() {
-        document.body.classList.remove("dark-theme");
-        document.body.classList.add("light-theme");
+    // Function to toggle the theme when the button is clicked
+    function toggleTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.remove('dark-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.add('dark-theme');
+            localStorage.setItem('theme', 'dark');
+        }
     }
 
-    // Function to set the dark theme
-    function setDarkTheme() {
-        document.body.classList.remove("light-theme");
-        document.body.classList.add("dark-theme");
+    // Function to set the theme based on user preference in localStorage
+    function setTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        } else {
+            document.body.classList.remove('dark-theme');
+        }
     }
 
-    // Check the user's preferred theme from local storage (optional)
-    if (localStorage.getItem("theme") === "dark") {
-        setDarkTheme();
-    } else {
-        setLightTheme();
+    // Add an event listener to the toggle button
+    const themeToggleButton = document.getElementById('theme-toggle-button');
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', toggleTheme);
     }
+
+    // Call setTheme to set the initial theme when the page loads
+    setTheme();
 </script>
 <style>
-    /* light-theme.css */
-.light-theme {
-    /* Define styles for the light theme here */
-    background-color: #ffffff;
-    color: #000000;
-    /* Add more styles as needed */
+
+/* Light Theme Styles */
+body.light-theme {
+    background-color: #fff;
+    color: #333;
 }
 
-/* dark-theme.css */
-/* dark-theme.css */
-.dark-theme {
-    /* Dark background color */
-    background-color: #000000;
-    color: #ffffff; /* Light text color */
+/* Dark Theme Styles */
+body.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
 
-    /* Increase font size slightly */
-    font-size: 16px;
+/* Curved border for buttons and hyperlinks */
+body.light-theme .btn,
+body.light-theme .navbar-nav li a,
+body.dark-theme .btn,
+body.dark-theme .navbar-nav li a {
+    border-radius: 15px; /* Adjust the radius as needed */
+}
 
-    /* Apply a subtle text shadow */
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
-
-    /* Style links */
-    a {
-        color: #bb86fc; /* Custom link color in dark mode */
-        text-decoration: underline; /* Underline links */
-    }
-
-    /* Style buttons */
-    .btn {
-        background-color: #6200ea; /* Custom button background color in dark mode */
-        color: #ffffff; /* Custom button text color in dark mode */
-        border: none;
-
-    }
-    /* Update the button style in dark-theme.css */
-
-/* Add a custom class to the button to style it */
-.fancy-button {
-    background-color: #6200ea; /* Custom button background color in dark mode */
-    color: #ffffff; /* Custom button text color in dark mode */
+/* Button styles for dark mode */
+body.dark-theme .btn {
+    background-color: #ff6600;
+    color: #fff;
+    padding: 10px 20px;
     border: none;
-    padding: 10px 20px; /* Adjust padding as needed */
-    border-radius: 25px; /* Round the button corners */
-    font-size: 18px; /* Increase font size for emphasis */
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Add transitions for smooth hover effect */
+    border-radius: 15px; /* Adjust the radius as needed */
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-/* Hover effect for the button */
-.fancy-button:hover {
-    background-color: #bb86fc; /* Change background color on hover */
-    transform: scale(1.05); /* Add a slight scale-up effect on hover */
+body.dark-theme .btn:hover {
+    background-color: #ff8844; /* Change the hover color as needed */
 }
 
-/* Add a transition effect for a smooth hover animation */
-.fancy-button:focus {
-    outline: none; /* Remove the default focus outline */
-    box-shadow: 0 0 10px rgba(187, 134, 252, 0.5); /* Add a box shadow on focus */
+/* Adjust text color for dark mode */
+body.dark-theme a,
+body.dark-theme p,
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4 {
+    color: #fff; /* Adjust text color for readability */
+}
+    /* Footer Styles for Light Theme */
+body.light-theme #footer {
+    background-color: #f5f5f5;
+    color: #333;
 }
 
+/* Footer Styles for Dark Theme */
+body.dark-theme #footer {
+    background-color: #222;
+    color: #fff;
 }
 
+/* Adjust text color for footer links in both themes */
+body #footer a {
+    color: inherit;
+}
+
+/* Add padding and margin to the footer content */
+body #footer .container {
+    padding: 20px 0;
+}
+
+/* Style for the companyinfo section */
+body #footer .companyinfo h2 {
+    color: #333; /* Adjust text color for better readability */
+}
+
+/* Style for the address section */
+body #footer .address p {
+    color: #777; /* Adjust text color for better readability */
+}
+/* Box shadow effect for images in dark mode */
+body.dark-theme img {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5); /* Adjust shadow values as needed */
+    transition: box-shadow 0.3s ease;
+}
+
+/* Hover effect for images in dark mode */
+body.dark-theme img:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7); /* Adjust hover shadow values as needed */
+}
 
 </style>
 </body>
