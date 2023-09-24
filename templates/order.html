@@ -1,0 +1,69 @@
+{% extends 'master.html' %}
+{% block body %}
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li class="active">Your Order</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in order %}
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="{{i.image}}" alt="" height="300"></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href="">{{i.product}}</a></h4>
+                            <p>Web ID: 1089772</p>
+                        </td>
+                        <td class="cart_price">
+                            <p>${{i.price}}</p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <p>{{i.quantity}}</p>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">${{i.total}}</p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                 <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td>
+                <h3>Sub Total :</h3>
+            </td>
+            <td>
+                <h3>${{ cart_total_amount }}</h3>
+            </td>
+            <td>
+                <!-- order.html -->
+                <a href="{% url 'payment' %}?cart_total_amount={{ cart_total_amount }}" class="btn btn-primary">Pay Now</a>
+            </td>
+        </tr>
+    </tfoot>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+{% endblock %}

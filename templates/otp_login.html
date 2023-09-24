@@ -1,0 +1,20 @@
+{% extends 'master.html' %}
+
+{% block body %}
+<section id="form">
+    <div class="container">
+        <div class="row">
+            <div class="signup-form">
+                <h2>Login with OTP</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="email">Enter Your Email:</label>
+                    <input type="email" name="email" id="email" required>
+                    <button class="btn btn-default" type="submit">Request OTP</button>
+                    <a href="{% url 'signup' %}"><span style="color:black;margin-left:500px">Create Your Account</span></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

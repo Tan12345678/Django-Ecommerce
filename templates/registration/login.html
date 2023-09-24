@@ -1,0 +1,39 @@
+{% extends 'master.html' %}
+{% block body %}
+<style>
+    /* Add CSS for the boxy shadow */
+    .signup-form {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+    }
+</style>
+<section id="form"><!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="signup-form"><!--login form-->
+                {% if user.is_authenticated %}
+                <!-- Redirect to OTP login since the user is authenticated -->
+                <script>
+                    window.location.href = "{% url 'otp_login' %}";
+                </script>
+                {% else %}
+                <h2>Login  account</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {{field.errors}}
+                    <label>{{field.label_tag}}</label>
+                    <p>{{field}}</p>
+                    {% endfor %}
+                    <a href="{% url 'password_reset' %}" style="float:right">Forgot password ? </a><br>
+                    <button class="btn-btn-default" type="submit">Login</button>
+                    <a href="{% url 'signup' %}"><span style="color:black;margin-left:500px">Create Your Account</span></a>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
