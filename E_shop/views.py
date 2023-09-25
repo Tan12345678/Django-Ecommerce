@@ -213,22 +213,12 @@ def Your_Order(request):
     return render(request,'order.html',context)
 
 
-def Payment(request):
-    cart_total_amount = request.GET.get('cart_total_amount')
-
-    # Pass cart_total_amount to the template context
-    context = {
-        'cart_total_amount': cart_total_amount,
-    }
-    return render(request,'payment.html',context)
 
 
 # views.py
 
 
 
-def payments(request):
-    return render(request, 'payments.html')
 
 
 # views.py

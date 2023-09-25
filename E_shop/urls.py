@@ -41,8 +41,7 @@ urlpatterns = [
     path('otp-verify/', views.otp_verify, name='otp_verify'),
     path('checkout/',views.Checkout,name='checkout'),
     path('order/',views.Your_Order,name='order'),
-    path('payment/',views.Payment,name='payment'),
-    path('paymentok/', views.payments, name='paymentok'),
+
 
 
 
